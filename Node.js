@@ -1,27 +1,48 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@mui/material/styles";
-import darkTheme from "./theme";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-import MultiTenant from "./pages/MultiTenant";
-import LawEnforcementPortal from "./pages/LawEnforcementPortal";
-import SSOAuth from "./components/SSOAuth";
+import NotFound from "./pages/NotFound";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/multi-tenant" element={<MultiTenant />} />
-          <Route path="/law-enforcement" element={<LawEnforcementPortal />} />
-          <Route path="/sso" element={<SSOAuth />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-    </ThemeProvider>
+    </AuthProvider>
   );
 }
 
 export default App;
+
+// package.json
+const packageJson = {
+  "name": "ipdr-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
+    "@mui/material": "^5.15.0",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "axios": "^1.6.0",
+    "jwt-decode": "^4.0.0",
+    "react-toastify": "^9.1.2"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "vite preview"
+  }
+};
